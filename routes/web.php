@@ -11,6 +11,7 @@ use App\Http\Controllers\Mentor\MentorDashboardController;
 use App\Models\MahasiswaProfile;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\QuestionController;
+use App\Models\HasilTes;
 
 
 Route::get('/tes-relasi', function () {
@@ -92,8 +93,22 @@ Route::get('/mahasiswa/tes-kepribadian', function () {
 Route::get('/pilih-tes-skill', [SkillController::class, 'index'])
     ->name('tes.skill');
 
-Route::get('/skill/{skill}/soal', [QuestionController::class, 'show'])
+Route::get('/skill/{skill}/soal/{nomor?}', [QuestionController::class, 'show'])
     ->name('skill.soal');
+
+Route::post('/skill/{skill}/soal/{nomor}', [QuestionController::class, 'submit'])
+    ->name('skill.submit');
+
+Route::get('/hasil-tes/{hasilTes}', function (App\Models\HasilTes $hasilTes) {
+
+    $detailSkill = $hasilTes->detailSkills()->with('skill')->first();
+
+    return view('mahasiswa.hasil_tes', compact(
+        'hasilTes',
+        'detailSkill'
+    ));
+
+})->name('hasil.tes');
 
 
 
