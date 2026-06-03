@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Jurusan;
 use App\Models\MahasiswaProfile;
 
 use Illuminate\Support\Facades\Hash;
@@ -13,9 +14,11 @@ use Illuminate\Support\Facades\Hash;
 class MahasiswaRegisterController extends Controller
 {
     // Menampilkan halaman form
-    public function create()
+   public function create()
     {
-        return view('auth.daftar_mahasiswa');
+        $jurusan = Jurusan::all();
+
+        return view('auth.daftar_mahasiswa', compact('jurusan'));
     }
 
     // Menyimpan data register
@@ -24,7 +27,7 @@ class MahasiswaRegisterController extends Controller
         // Validasi input
         $request->validate([
             'nama' => 'required',
-            'jurusan' => 'required',
+            'jurusan_id' => 'required',
             'angkatan' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
@@ -41,7 +44,7 @@ class MahasiswaRegisterController extends Controller
         // Simpan ke tabel mahasiswa_profiles
         MahasiswaProfile::create([
             'user_id' => $user->id,
-            'jurusan' => $request->jurusan,
+            'jurusan_id' => $request->jurusan_id,
             'angkatan' => $request->angkatan,
         ]);
 

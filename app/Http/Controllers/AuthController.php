@@ -8,6 +8,7 @@ use App\Models\MahasiswaProfile;
 use App\Models\MentorProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Jurusan;
 
 class AuthController extends Controller
 {
@@ -16,7 +17,9 @@ class AuthController extends Controller
     // =========================
     public function showMahasiswaRegister()
     {
-        return view('auth.daftar_mahasiswa');
+        $jurusan = Jurusan::all();
+
+    return view('auth.daftar_mahasiswa', compact('jurusan'));
     }
 
     // =========================
@@ -26,7 +29,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'jurusan' => 'required',
+            'jurusan_id' => 'required',
             'angkatan' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
@@ -44,7 +47,7 @@ class AuthController extends Controller
         // simpan profile mahasiswa
         MahasiswaProfile::create([
             'user_id' => $user->id,
-            'jurusan' => $request->jurusan,
+            'jurusan_id' => $request->jurusan_id,
             'angkatan' => $request->angkatan,
         ]);
 

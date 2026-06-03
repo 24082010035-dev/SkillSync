@@ -218,7 +218,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
         <!-- CARD -->
-        <a href="#" class="group">
+        <a href="{{ route('pilih.tes') }}" class="group">
 
             <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 h-full">
 
@@ -344,34 +344,32 @@
 <!-- PREMIUM -->
 <section class="px-8 pb-10">
 
-    <div class="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-3xl p-8 text-white shadow-lg flex flex-col lg:flex-row justify-between gap-6 items-center">
+    <div class="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl p-5 text-white shadow-md flex justify-between items-center">
 
         <div>
+            <h3 class="text-xl font-bold">
+                Paket Premium 🚀
+            </h3>
 
-            <h2 class="text-3xl font-bold mb-2">
-                Upgrade ke Premium 🚀
-            </h2>
-
-            <p class="text-yellow-100">
-                Nikmati akses unlimited semua fitur SkillSync tanpa batas.
+            <p class="text-sm text-yellow-100">
+                Akses unlimited semua fitur SkillSync
             </p>
-
         </div>
 
-        <div class="text-center lg:text-right">
+        <div class="text-right">
 
-            <p class="text-lg font-semibold">
+            <p class="font-semibold">
                 Rp 99.000 / bulan
             </p>
 
-            <p class="text-yellow-100 text-sm mb-4">
+            <p class="text-xs text-yellow-100 mb-2">
                 atau Rp 25.000 / hasil
             </p>
 
             <a href="#"
-               class="bg-white text-orange-500 px-6 py-3 rounded-2xl font-semibold hover:bg-slate-100 transition inline-block">
+            class="bg-white text-orange-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-100">
 
-                Upgrade Sekarang
+                Upgrade
             </a>
 
         </div>

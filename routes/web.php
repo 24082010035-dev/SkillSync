@@ -8,6 +8,16 @@ use App\Http\Controllers\Auth\MahasiswaRegisterController;
 use App\Http\Controllers\Mahasiswa\DashboardMahasiswaController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Mentor\MentorDashboardController;
+use App\Models\MahasiswaProfile;
+
+Route::get('/tes-relasi', function () {
+
+    $profile = MahasiswaProfile::first();
+
+    dd(
+        $profile->jurusan->nama_jurusan
+    );
+});
 
 /*
 | LANDING PAGE
@@ -67,10 +77,26 @@ Route::post('/logout', [LoginController::class, 'logout'])
 */
 
 Route::get('/mahasiswa/dashboard', [DashboardMahasiswaController::class, 'index'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->name('mahasiswa.dashboard');
 
 Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])
     ->middleware('auth');
 
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
     ->middleware('auth');
+
+/*
+| Pilih Tes
+*/
+Route::get('/mahasiswa/pilih-tes', function () {
+    return view('mahasiswa.pilih_tes');
+})->middleware('auth')->name('pilih.tes');
+
+Route::get('/mahasiswa/tes-kepribadian', function () {
+    return "Halaman Tes Kepribadian";
+})->middleware('auth')->name('tes.kepribadian');
+
+Route::get('/mahasiswa/tes-skill', function () {
+    return "Halaman Tes Skill";
+})->middleware('auth')->name('tes.skill');

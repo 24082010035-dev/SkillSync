@@ -71,11 +71,20 @@
                     Jurusan
                 </label>
 
-                <input type="text"
-                       name="jurusan"
-                       placeholder="Masukkan jurusan"
-                       class="w-full p-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                       required>
+                <select
+                    name="jurusan_id"
+                    class="w-full p-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required>
+
+                    <option value="">Pilih Jurusan</option>
+
+                    @foreach($jurusan as $j)
+                        <option value="{{ $j->id }}">
+                            {{ $j->nama_jurusan }}
+                        </option>
+                    @endforeach
+
+                </select>
 
                 <!-- Angkatan -->
                 <label class="text-sm text-blue-500 font-semibold">
