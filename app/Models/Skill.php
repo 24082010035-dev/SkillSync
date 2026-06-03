@@ -22,4 +22,9 @@ class Skill extends Model
             'jurusan_id'
         );
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'skill_id');
+    }
 }
