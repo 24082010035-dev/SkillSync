@@ -14,6 +14,8 @@ use App\Http\Controllers\QuestionController;
 use App\Models\HasilTes;
 use App\Http\Controllers\Admin\SoalKepribadianController;
 use App\Http\Controllers\Admin\KategoriKepribadianController;
+use App\Models\SoalKepribadian;
+use App\Http\Controllers\KepribadianController;
 
 
 Route::get('/tes-relasi', function () {
@@ -88,10 +90,6 @@ Route::get('/mahasiswa/pilih-tes', function () {
     return view('mahasiswa.pilih_tes');
 })->middleware('auth')->name('pilih.tes');
 
-Route::get('/mahasiswa/tes-kepribadian', function () {
-    return "Halaman Tes Kepribadian";
-})->middleware('auth')->name('tes.kepribadian');
-
 Route::get('/pilih-tes-skill', [SkillController::class, 'index'])
     ->name('tes.skill');
 
@@ -153,9 +151,17 @@ Route::get(
 )->middleware('auth')
  ->name('soal.index');
 
- Route::get(
-    '/admin/kategori-kepribadian',
-    [KategoriKepribadianController::class, 'index']
-)->name('kategori.index');
+ Route::get('/mahasiswa/tes-kepribadian/{nomor?}', [KepribadianController::class, 'show'])
+    ->middleware('auth')
+    ->name('tes.kepribadian');
+Route::post('/mahasiswa/tes-kepribadian/{nomor}', [KepribadianController::class, 'submit'])
+    ->middleware('auth')
+    ->name('tes.kepribadian.submit');
+Route::get(
+    '/hasil-kepribadian/{hasilTes}',
+    [KepribadianController::class, 'hasil']
+)->middleware('auth')
+ ->name('hasil.kepribadian');
+
 
 

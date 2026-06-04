@@ -183,7 +183,7 @@
             Kenali kepribadian, gaya belajar, dan potensi karirmu melalui tes diagnostik SkillSync.
         </p>
 
-        <a href="#"
+        <a href="{{ route('tes.kepribadian') }}"
            class="bg-sky-500 hover:bg-sky-600 transition text-white px-6 py-3 rounded-2xl inline-block shadow-md">
 
             Mulai Tes Kepribadian
