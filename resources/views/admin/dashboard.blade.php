@@ -109,9 +109,8 @@
                 Tambah, edit, dan hapus soal tes kepribadian mahasiswa.
             </p>
 
-            <a href="#"
-               class="inline-block bg-yellow-500 hover:bg-yellow-600 transition text-white px-4 py-2 rounded-xl text-sm font-medium">
-
+            <a href="{{ route('soal.index') }}"
+            class="inline-block bg-yellow-500 hover:bg-yellow-600 transition text-white px-4 py-2 rounded-xl text-sm font-medium">
                 Kelola Soal
             </a>
 

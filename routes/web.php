@@ -12,6 +12,8 @@ use App\Models\MahasiswaProfile;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\QuestionController;
 use App\Models\HasilTes;
+use App\Http\Controllers\Admin\SoalKepribadianController;
+use App\Http\Controllers\Admin\KategoriKepribadianController;
 
 
 Route::get('/tes-relasi', function () {
@@ -110,5 +112,50 @@ Route::get('/hasil-tes/{hasilTes}', function (App\Models\HasilTes $hasilTes) {
 
 })->name('hasil.tes');
 
+/*
+| kelola soal kepribadian (admin)
+*/
+Route::middleware('auth')->group(function () {
+
+    Route::get(
+        '/admin/soal-kepribadian',
+        [SoalKepribadianController::class, 'index']
+    )->name('soal.index');
+
+    Route::get(
+        '/admin/soal-kepribadian/create',
+        [SoalKepribadianController::class, 'create']
+    )->name('soal.create');
+
+    Route::post(
+        '/admin/soal-kepribadian/store',
+        [SoalKepribadianController::class, 'store']
+    )->name('soal.store');
+
+    Route::get(
+        '/admin/soal-kepribadian/edit/{id}',
+        [SoalKepribadianController::class, 'edit']
+    )->name('soal.edit');
+
+    Route::put(
+        '/admin/soal-kepribadian/update/{id}',
+        [SoalKepribadianController::class, 'update']
+    )->name('soal.update');
+
+    Route::delete(
+        '/admin/soal-kepribadian/delete/{id}',
+        [SoalKepribadianController::class, 'destroy']
+    )->name('soal.delete');
+});
+Route::get(
+    '/admin/soal-kepribadian',
+    [SoalKepribadianController::class, 'index']
+)->middleware('auth')
+ ->name('soal.index');
+
+ Route::get(
+    '/admin/kategori-kepribadian',
+    [KategoriKepribadianController::class, 'index']
+)->name('kategori.index');
 
 
