@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Mentor</title>
 
-<<<<<<< HEAD
+
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/lucide@latest"></script>
-=======
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
->>>>>>> 3e7da6bb5eb7e29d07a9a534c4824763da30db7f
+
 </head>
 
 <body class="bg-slate-50 text-gray-800 min-h-screen">

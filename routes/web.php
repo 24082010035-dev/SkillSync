@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\SoalKepribadianController;
 use App\Http\Controllers\Admin\KategoriKepribadianController;
 use App\Models\SoalKepribadian;
 use App\Http\Controllers\KepribadianController;
+use App\Http\Controllers\ProjectController;
 
 use App\Models\MahasiswaProfile;
 use App\Models\HasilTes;
@@ -127,12 +128,6 @@ Route::get('/syncpath/question/{number?}', [SyncPathController::class, 'question
 Route::post('/syncpath/submit/{question_id}', [SyncPathController::class, 'submit'])->name('syncpath.submit');
 Route::get('/syncpath/result', [SyncPathController::class, 'result'])->name('syncpath.result');    
 
-<<<<<<< HEAD
-/*
-|--------------------------------------------------------------------------
-| UPLOAD PROYEK MENTOR
-|--------------------------------------------------------------------------
-*/
 Route::get('/mentor/upload-proyek', [UploadProyekMentorController::class, 'create'])
     ->middleware('auth')
     ->name('mentor.upload.proyek');
@@ -179,8 +174,8 @@ Route::get('/tes/{slug}/result', [TestController::class, 'result'])
 | SKILL TEST
 |--------------------------------------------------------------------------
 */
-=======
->>>>>>> 3e7da6bb5eb7e29d07a9a534c4824763da30db7f
+
+
 Route::get('/pilih-tes-skill', [SkillController::class, 'index'])
     ->name('tes.skill');
 
@@ -228,8 +223,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/soal-kepribadian/delete/{id}', [SoalKepribadianController::class, 'destroy'])
         ->name('soal.delete');
 });
-<<<<<<< HEAD
-=======
+
 Route::get(
     '/admin/soal-kepribadian',
     [SoalKepribadianController::class, 'index']
@@ -249,7 +243,7 @@ Route::get(
  ->name('hasil.kepribadian');
 
 
->>>>>>> 3e7da6bb5eb7e29d07a9a534c4824763da30db7f
+
 
 /*
 |--------------------------------------------------------------------------
@@ -258,3 +252,15 @@ Route::get(
 */
 Route::get('/admin/kategori-kepribadian', [KategoriKepribadianController::class, 'index'])
     ->name('kategori.index');
+
+//UPLOAD PROYEK
+Route::get('/mahasiswa/upload-project', [ProjectController::class, 'create'])
+    ->middleware('auth')
+    ->name('project.create');
+
+Route::post('/mahasiswa/upload-project', [ProjectController::class, 'store'])
+    ->middleware('auth')
+    ->name('project.store');    
+Route::get('/mahasiswa/repository', [ProjectController::class, 'repository'])
+    ->middleware('auth')
+    ->name('repository.saya');    
