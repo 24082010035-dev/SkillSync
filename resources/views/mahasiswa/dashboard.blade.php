@@ -75,21 +75,42 @@
 
     <div class="mb-5">
         <h2 class="text-2xl font-bold text-slate-800">
-            Hasil Tes Kepribadian
+            Hasil Tes SynchMind
         </h2>
         <p class="text-slate-400 text-sm">
             Analisis potensi dan karakter belajar Anda
         </p>
     </div>
 
-    @php
-        $data = null;
-    @endphp
-
-    @if($data)
+   @if($hasilSyncMind)
 
         <div class="bg-white rounded-3xl p-8 shadow border border-slate-100">
-            <p>HASIL ADA</p>
+            <div class="bg-white rounded-3xl p-8 shadow border border-slate-100">
+
+            <h3 class="text-xl font-bold text-sky-600 mb-3">
+                Hasil Tes Kepribadian
+            </h3>
+
+            <p class="text-slate-600 mb-2">
+                @if($kategoriDominan)
+
+                <p class="text-sky-600 font-semibold mb-2">
+                    {{ $kategoriDominan->kategori->nama_kategori }}
+                </p>
+
+            @endif
+            </p>
+
+            <p class="text-slate-500 text-sm">
+                Tes terakhir: {{ \Carbon\Carbon::parse($hasilSyncMind->created_at)->translatedFormat('d F Y') }}
+            </p>
+
+            <a href="{{ route('hasil.kepribadian', $hasilSyncMind->id) }}"
+            class="inline-block mt-4 bg-sky-500 text-white px-4 py-2 rounded-xl">
+                Lihat Detail
+            </a>
+
+        </div>
         </div>
 
     @else
@@ -139,7 +160,11 @@
         <!-- SyncPath -->
         <a href="{{ route('syncpath.start') }}" class="group">
 
-            <div class="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-md transition">
+            <div class="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition">
+
+                <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
+                    🛣️
+                </div>
 
                 <h3 class="font-bold text-lg text-sky-600 mb-2">
                     SyncPath
@@ -154,7 +179,7 @@
         </a>
 
         <!-- SyncMind -->
-        <a href="#" class="group">
+        <a href="{{ route('tes.kepribadian') }}" class="group">
             <div class="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition">
 
                 <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
@@ -170,7 +195,7 @@
         </a>
 
         <!-- SyncGap -->
-        <a href="#" class="group">
+        <a href="{{ route('tes.skill') }}" class="group">
             <div class="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition">
 
                 <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mb-4">

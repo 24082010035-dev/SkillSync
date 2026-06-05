@@ -23,7 +23,7 @@ class SyncPathController extends Controller
             abort(404, 'Test SyncPath belum tersedia');
         }
 
-        return view('syncpath.start', compact('test'));
+      return view('mahasiswa.syncpath.start', compact('test'));
     }
 
     /**
@@ -44,7 +44,7 @@ class SyncPathController extends Controller
             return redirect()->route('syncpath.result');
         }
 
-        return view('syncpath.question', [
+        return view('mahasiswa.syncpath.question', [
             'question' => $question,
             'number' => $number,
             'total' => $questions->count()
@@ -85,6 +85,6 @@ class SyncPathController extends Controller
             ->with('option')
             ->get();
 
-        return view('syncpath.result', compact('results'));
+        return view('mahasiswa.syncpath.result', compact('results'));
     }
 }

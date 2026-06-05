@@ -14,20 +14,15 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
-        // user dummy (boleh dihapus kalau tidak perlu)
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+{
+    User::factory()->create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+    ]);
 
-        // panggil seeder lain
-        $this->call([
-            TestSeeder::class,
-        ]);
-        $this->call([
-    TestSeeder::class,
-    SyncPathQuestionSeeder::class,
-]);
-    }
+    $this->call([
+        TestSeeder::class,
+        SyncPathQuestionSeeder::class,
+    ]);
+}
 }

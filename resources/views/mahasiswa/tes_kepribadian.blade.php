@@ -23,9 +23,9 @@
 
 <div class="max-w-4xl mx-auto p-6">
 
-    <a href="{{ route('pilih.tes') }}"
+    <a href="{{ route('mahasiswa.dashboard') }}"
        class="text-blue-500 hover:underline inline-block mb-6">
-        ← Kembali ke Pilih Tes
+        ← Kembali
     </a>
 
     <!-- Header -->
@@ -36,7 +36,7 @@
         </span>
 
         <h2 class="text-3xl font-bold text-blue-700 mt-4">
-            Tes Kepribadian
+            SynchMind
         </h2>
 
         <p class="text-blue-500 mt-2">
