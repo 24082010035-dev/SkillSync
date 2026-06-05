@@ -6,7 +6,6 @@
     <title>Dashboard Mentor</title>
 
     @vite('resources/css/app.css')
-
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
@@ -16,21 +15,14 @@
 <nav class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
 
     <div class="flex items-center gap-3">
-
         <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold shadow">
             S
         </div>
 
         <div>
-            <h1 class="text-xl font-bold text-blue-600">
-                SkillSync
-            </h1>
-
-            <p class="text-xs text-slate-400">
-                Mentor Dashboard
-            </p>
+            <h1 class="text-xl font-bold text-blue-600">SkillSync</h1>
+            <p class="text-xs text-slate-400">Mentor Dashboard</p>
         </div>
-
     </div>
 
     <div class="flex items-center gap-4">
@@ -39,7 +31,6 @@
             <p class="font-semibold text-slate-700">
                 Halo, {{ auth()->user()->nama }}
             </p>
-
             <p class="text-sm text-slate-400">
                 {{ session('role_user') }}
             </p>
@@ -47,248 +38,117 @@
 
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-
-            <button type="submit"
-                class="bg-blue-500 text-white px-4 py-2 rounded-xl">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-xl">
                 Logout
             </button>
         </form>
 
     </div>
-
 </nav>
 
 <div class="p-8 max-w-7xl mx-auto">
 
     <!-- HEADER -->
     <div class="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl p-8 text-white shadow-lg mb-8">
-
         <h1 class="text-3xl font-bold mb-3">
             Selamat Datang Mentor 🚀
         </h1>
 
-        <p class="text-blue-100 max-w-2xl leading-relaxed">
-            Kelola materi pembelajaran, validasi kompetensi mahasiswa,
-            dan bantu mahasiswa berkembang bersama SkillSync.
+        <p class="text-blue-100">
+            Kelola proyek yang sudah Anda upload di SkillSync
         </p>
-
     </div>
 
     @php
         $pending = 0;
-        $totalMateri = 0;
+        $totalProyek = $proyekMentor->count();
         $totalViews = 0;
-
-        $data_validasi = [];
-        $materi = [];
     @endphp
 
     <!-- SUMMARY -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 
-        <!-- CARD -->
-        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex justify-between items-center">
-
-            <div>
-                <p class="text-sm text-slate-400 mb-1">
-                    Pending Validasi
-                </p>
-
-                <h2 class="text-3xl font-bold text-slate-800">
-                    {{ $pending }}
-                </h2>
-            </div>
-
-            <div class="bg-yellow-100 p-4 rounded-2xl">
-                <i data-lucide="clock" class="text-yellow-600"></i>
-            </div>
-
+        <div class="bg-white p-6 rounded-3xl shadow-sm">
+            <p class="text-sm text-slate-400">Total Proyek</p>
+            <h2 class="text-3xl font-bold">{{ $totalProyek }}</h2>
         </div>
 
-        <!-- CARD -->
-        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex justify-between items-center">
-
-            <div>
-                <p class="text-sm text-slate-400 mb-1">
-                    Total Materi
-                </p>
-
-                <h2 class="text-3xl font-bold text-slate-800">
-                    {{ $totalMateri }}
-                </h2>
-            </div>
-
-            <div class="bg-blue-100 p-4 rounded-2xl">
-                <i data-lucide="file-text" class="text-blue-600"></i>
-            </div>
-
+        <div class="bg-white p-6 rounded-3xl shadow-sm">
+            <p class="text-sm text-slate-400">Pending</p>
+            <h2 class="text-3xl font-bold">{{ $pending }}</h2>
         </div>
 
-        <!-- CARD -->
-        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex justify-between items-center">
-
-            <div>
-                <p class="text-sm text-slate-400 mb-1">
-                    Total Views
-                </p>
-
-                <h2 class="text-3xl font-bold text-slate-800">
-                    {{ $totalViews }}
-                </h2>
-            </div>
-
-            <div class="bg-green-100 p-4 rounded-2xl">
-                <i data-lucide="eye" class="text-green-600"></i>
-            </div>
-
+        <div class="bg-white p-6 rounded-3xl shadow-sm">
+            <p class="text-sm text-slate-400">Views</p>
+            <h2 class="text-3xl font-bold">{{ $totalViews }}</h2>
         </div>
 
     </div>
 
-    <!-- VALIDASI -->
-    <div class="mb-10">
-
-        <div class="flex items-center gap-2 mb-5">
-
-            <i data-lucide="award" class="text-blue-500"></i>
-
-            <h2 class="text-2xl font-bold text-slate-800">
-                Validasi Tes Kompetensi
-            </h2>
-
+    <!-- HEADER PROYEK -->
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h2 class="text-2xl font-bold">Proyek Mentor</h2>
+            <p class="text-slate-400 text-sm">Daftar proyek yang kamu upload</p>
         </div>
 
-        @if(count($data_validasi) > 0)
+        <a href="{{ route('mentor.upload.proyek') }}"
+           class="bg-blue-500 text-white px-5 py-3 rounded-2xl flex items-center gap-2">
+            + Upload Proyek
+        </a>
+    </div>
 
-            @foreach($data_validasi as $v)
+    <!-- LIST PROYEK -->
+    @if($proyekMentor->count() > 0)
 
-            <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 mb-4 flex justify-between items-center">
+        @foreach($proyekMentor as $proyek)
 
-                <div class="flex items-center gap-4">
+        <div class="bg-white p-6 rounded-3xl shadow-sm mb-4">
 
-                    <div class="bg-blue-100 p-4 rounded-2xl">
-                        <i data-lucide="users" class="text-blue-600"></i>
-                    </div>
-
-                    <div>
-
-                        <h3 class="font-semibold text-slate-800">
-                            {{ $v['nama'] }}
-                        </h3>
-
-                        <p class="text-sm text-blue-500">
-                            {{ $v['judul'] }}
-                        </p>
-
-                        <p class="text-xs text-slate-400">
-                            {{ $v['tanggal'] }}
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <button class="bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-xl">
-                    Review
-                </button>
-
-            </div>
-
-            @endforeach
-
-        @else
-
-        <div class="bg-white border-2 border-dashed border-slate-200 rounded-3xl p-10 text-center">
-
-            <div class="text-5xl mb-3">
-                📭
-            </div>
-
-            <h3 class="text-xl font-bold text-slate-700 mb-2">
-                Belum Ada Data Validasi
+            <!-- JUDUL -->
+            <h3 class="text-xl font-bold text-slate-800">
+                {{ $proyek->judul_proyek }}
             </h3>
 
-            <p class="text-slate-400">
-                Nanti akan muncul saat mahasiswa submit kompetensi.
+            <!-- DESKRIPSI -->
+            <p class="text-slate-500 mt-1">
+                {{ $proyek->deskripsi }}
             </p>
 
-        </div>
-
-        @endif
-
-    </div>
-
-    <!-- HEADER MATERI -->
-    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-
-        <div>
-
-            <h2 class="text-2xl font-bold text-slate-800">
-                Materi Pembelajaran
-            </h2>
-
-            <p class="text-slate-400 text-sm">
-                Kelola materi yang sudah Anda upload
+            <!-- TANGGAL -->
+            <p class="text-xs text-slate-400 mt-2">
+                {{ $proyek->created_at->format('d M Y') }}
             </p>
 
-        </div>
+            <!-- ACTION BUTTON -->
+            <div class="flex gap-3 mt-4">
 
-        <a href="#"
-           class="bg-blue-500 hover:bg-blue-600 transition text-white px-5 py-3 rounded-2xl flex items-center gap-2 w-fit">
+                <!-- LIHAT (NEW) -->
+                <a href="{{ route('mentor.upload.proyek.show', $proyek->id) }}"
+                   class="text-green-500 border border-green-500 px-4 py-1 rounded-xl hover:bg-green-50">
+                    Lihat
+                </a>
 
-            <i data-lucide="plus"></i>
-
-            Upload Materi Baru
-
-        </a>
-
-    </div>
-
-    <!-- LIST MATERI -->
-    @if(count($materi) > 0)
-
-        @foreach($materi as $m)
-
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 mb-5 flex flex-col lg:flex-row justify-between gap-5">
-
-            <div class="flex gap-4">
-
-                <div class="bg-purple-100 p-4 rounded-2xl h-fit">
-                    <i data-lucide="file" class="text-purple-600"></i>
-                </div>
-
-                <div>
-
-                    <h3 class="font-semibold text-lg text-slate-800 mb-1">
-                        {{ $m['judul'] }}
-                    </h3>
-
-                    <p class="text-sm text-slate-500 mb-2">
-                        {{ $m['kategori'] }}
-                    </p>
-
-                    <p class="text-xs text-slate-400">
-                        👁 {{ $m['views'] ?? 0 }} views •
-                        ⬇ {{ $m['downloads'] ?? 0 }} downloads
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="flex gap-3">
-
-                <a href="#"
-                   class="border border-blue-500 text-blue-500 px-4 py-2 rounded-xl hover:bg-blue-50 transition">
-
+                <!-- EDIT -->
+                <a href="{{ route('mentor.upload.proyek.edit', $proyek->id) }}"
+                   class="text-blue-500 border border-blue-500 px-4 py-1 rounded-xl hover:bg-blue-50">
                     Edit
                 </a>
 
-                <button
-                    class="border border-red-400 text-red-500 px-4 py-2 rounded-xl hover:bg-red-50 transition">
+                <!-- DELETE -->
+                <form action="{{ route('mentor.upload.proyek.delete', $proyek->id) }}"
+                      method="POST"
+                      onsubmit="return confirm('Yakin mau hapus proyek ini?')">
 
-                    Hapus
-                </button>
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit"
+                            class="text-red-500 border border-red-500 px-4 py-1 rounded-xl hover:bg-red-50">
+                        Hapus
+                    </button>
+
+                </form>
 
             </div>
 
@@ -298,21 +158,11 @@
 
     @else
 
-    <div class="bg-white border-2 border-dashed border-slate-200 rounded-3xl p-12 text-center">
-
-        <div class="text-5xl mb-4">
-            📂
+        <div class="bg-white p-10 text-center rounded-3xl border-dashed border-2 border-slate-200">
+            <p class="text-slate-400">
+                Belum ada proyek yang diupload
+            </p>
         </div>
-
-        <h3 class="text-xl font-bold text-slate-700 mb-2">
-            Belum Ada Materi
-        </h3>
-
-        <p class="text-slate-400">
-            Upload materi pertama Anda sekarang.
-        </p>
-
-    </div>
 
     @endif
 
