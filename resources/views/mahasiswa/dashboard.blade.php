@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Mahasiswa</title>
 
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-slate-50 text-gray-800 min-h-screen">
@@ -101,14 +102,19 @@
                 Belum Ada Hasil Tes
             </h3>
 
-            <p class="text-slate-500 mb-6">
-                Mulai tes untuk melihat hasil kamu
+            <p class="text-slate-500 max-w-xl mx-auto leading-relaxed mb-6">
+                Mulai tes untuk melihat hasil kamu dan kenali potensi diri secara lebih mendalam.
             </p>
 
-            <a href="/tes/syncpath"
-               class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-2xl inline-block">
+            <a href="{{ route('tes.kepribadian') }}"
+               class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-2xl inline-block shadow-md transition">
+
                 Mulai Tes
             </a>
+
+            <p class="text-sm text-slate-400 mt-4">
+                Gratis • 15–20 menit
+            </p>
 
         </div>
 
@@ -133,19 +139,19 @@
         <!-- SyncPath -->
         <a href="{{ route('syncpath.start') }}" class="group">
 
-    <div class="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-md transition">
+            <div class="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-md transition">
 
-        <h3 class="font-bold text-lg text-sky-600 mb-2">
-            SyncPath
-        </h3>
+                <h3 class="font-bold text-lg text-sky-600 mb-2">
+                    SyncPath
+                </h3>
 
-        <p class="text-sm text-slate-500">
-            Tes Arah Karir & Akademik sesuai minat dan bakatmu.
-        </p>
+                <p class="text-sm text-slate-500">
+                    Tes Arah Karir & Akademik sesuai minat dan bakatmu.
+                </p>
 
-    </div>
+            </div>
 
-</a>
+        </a>
 
         <!-- SyncMind -->
         <a href="#" class="group">
@@ -211,11 +217,10 @@
             </div>
         </a>
 
-        <!-- ⭐ SyncProject (BARU) -->
+        <!-- SyncProject -->
         <a href="#" class="group">
             <div class="bg-white border border-sky-200 p-6 rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-1 transition relative overflow-hidden">
 
-                <!-- badge -->
                 <span class="absolute top-3 right-3 bg-sky-500 text-white text-xs px-2 py-1 rounded-full">
                     New
                 </span>
@@ -236,7 +241,16 @@
 
 </section>
 
-</section>
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: "{{ session('success') }}",
+        confirmButtonText: 'OK'
+    });
+</script>
+@endif
 
 </body>
 </html>

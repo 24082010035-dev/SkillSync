@@ -3,7 +3,8 @@
 <head>
     <title>Login</title>
 
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-blue-50 text-gray-800 min-h-screen flex flex-col">
@@ -123,6 +124,15 @@
         </div>
 
     </div>
-
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}',
+        confirmButtonText: 'OK'
+    });
+</script>
+@endif
 </body>
 </html>

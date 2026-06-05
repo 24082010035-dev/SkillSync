@@ -47,17 +47,19 @@ class LoginController extends Controller
 
             // redirect sesuai role
             if ($user->role === 'admin') {
-                return redirect('/admin/dashboard');
+                return redirect('/admin/dashboard')
+                    ->with('success', 'Login berhasil!');
             }
 
             if ($user->role === 'mentor') {
-                return redirect('/mentor/dashboard');
+                return redirect('/mentor/dashboard')
+                    ->with('success', 'Login berhasil!');
             }
 
             if ($user->role === 'mahasiswa') {
-                return redirect('/mahasiswa/dashboard');
+                return redirect('/mahasiswa/dashboard')
+                    ->with('success', 'Login berhasil!');
             }
-
             // kalau role tidak ada
             Auth::logout();
 

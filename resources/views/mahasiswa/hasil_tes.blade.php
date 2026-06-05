@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Tes Skill</title>
 
-```
+
 @vite(['resources/css/app.css'])
-```
+
 
 </head>
 
 <body class="bg-blue-50 min-h-screen">
 
-```
+
 <!-- Navbar -->
 <div class="bg-white px-6 py-4 shadow flex items-center gap-2">
     <div class="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded">
@@ -115,7 +115,7 @@
     </a>
 
 </div>
-```
+
 
 </body>
 </html>

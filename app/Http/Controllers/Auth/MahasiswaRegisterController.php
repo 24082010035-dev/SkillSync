@@ -49,6 +49,7 @@ class MahasiswaRegisterController extends Controller
         ]);
 
         // Redirect ke login
-        return redirect()->route('login');
+        return redirect()->route('login')
+    ->with('success', 'Registrasi berhasil! Silakan login.');
     }
 }
