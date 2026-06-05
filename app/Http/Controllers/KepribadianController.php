@@ -28,20 +28,28 @@ class KepribadianController extends Controller
         }
 
         $progress = ($nomor / $totalSoal) * 100;
+        $jawabanSebelumnya = session('jawaban_kepribadian', []);
+
+        $jawabanTerpilih = $jawabanSebelumnya[$nomor] ?? null;
+       
 
         return view('mahasiswa.tes_kepribadian', compact(
             'question',
             'nomor',
             'totalSoal',
-            'progress'
+            'progress',
+            'jawabanTerpilih'
         ));
     }
    public function submit(Request $request, $nomor)
     {
-        session()->push(
-            'jawaban_kepribadian',
-            $request->jawaban
-        );
+        $jawaban = session('jawaban_kepribadian', []);
+
+        $jawaban[$nomor] = $request->jawaban;
+
+        session([
+            'jawaban_kepribadian' => $jawaban
+        ]);
 
         $totalSoal = SoalKepribadian::count();
 
