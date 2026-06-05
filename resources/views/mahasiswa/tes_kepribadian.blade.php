@@ -88,10 +88,11 @@
                 <label class="block border rounded-xl p-4 hover:bg-blue-50">
 
                     <input type="radio"
-                           name="jawaban"
-                           value="{{ $opsi->id }}"
-                           class="mr-3"
-                           required>
+                        name="jawaban"
+                        value="{{ $opsi->id }}"
+                        class="mr-3"
+                        {{ $jawabanTerpilih == $opsi->id ? 'checked' : '' }}
+                        required>
 
                     {{ $opsi->opsi }}
 
@@ -102,18 +103,27 @@
         </div>
 
     </div>
-    <div class="flex justify-end">
+    <div class="flex justify-between">
 
-    <button type="submit"
-            class="px-5 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-semibold">
-        Selanjutnya →
-    </button>
+        @if($nomor > 1)
+        <a href="{{ route('tes.kepribadian', ['nomor' => $nomor - 1]) }}"
+        class="px-5 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-xl font-semibold">
+            ← Sebelumnya
+        </a>
+    @endif
 
-</div>
+        <button type="submit"
+                class="px-5 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-semibold">
+            Selanjutnya →
+        </button>
 
-</form>
+    </div>
 
-</div>
+    </div>
+
+    </form>
+
+    </div>
 
 </body>
 </html>
