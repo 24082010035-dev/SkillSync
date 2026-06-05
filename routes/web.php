@@ -16,11 +16,13 @@ use App\Http\Controllers\Admin\SoalKepribadianController;
 use App\Http\Controllers\Admin\KategoriKepribadianController;
 use App\Models\SoalKepribadian;
 use App\Http\Controllers\KepribadianController;
-<<<<<<< HEAD
+
 use App\Http\Controllers\SyncPathController;
-=======
+
 use App\Http\Controllers\ProjectController;
->>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835
+use App\Http\Controllers\Mentor\UploadProyekMentorController;
+use App\Http\Controllers\TestController;
+
 
 
 Route::get('/tes-relasi', function () {
@@ -95,8 +97,7 @@ Route::get('/mahasiswa/pilih-tes', function () {
     return view('mahasiswa.pilih_tes');
 })->middleware('auth')->name('pilih.tes');
 
-<<<<<<< HEAD
-=======
+
 Route::get('/mentor/upload-proyek', [UploadProyekMentorController::class, 'create'])
     ->middleware('auth')
     ->name('mentor.upload.proyek');
@@ -145,7 +146,7 @@ Route::get('/tes/{slug}/result', [TestController::class, 'result'])
 */
 
 
->>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835
+
 Route::get('/pilih-tes-skill', [SkillController::class, 'index'])
     ->name('tes.skill');
 
@@ -201,15 +202,7 @@ Route::middleware('auth')->group(function () {
         [SoalKepribadianController::class, 'destroy']
     )->name('soal.delete');
 });
-<<<<<<< HEAD
-=======
 
->>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835
-Route::get(
-    '/admin/soal-kepribadian',
-    [SoalKepribadianController::class, 'index']
-)->middleware('auth')
- ->name('soal.index');
 
  Route::get('/mahasiswa/tes-kepribadian/{nomor?}', [KepribadianController::class, 'show'])
     ->middleware('auth')
@@ -224,7 +217,7 @@ Route::get(
  ->name('hasil.kepribadian');
 
 
-<<<<<<< HEAD
+
  /*
 | SyncPath
 */
@@ -243,11 +236,6 @@ Route::post('/syncpath/submit/{question_id}', [SyncPathController::class, 'submi
 Route::get('/syncpath/result', [SyncPathController::class, 'result'])
     ->middleware('auth')
     ->name('syncpath.result');
-
-
-
-=======
-
 
 /*
 |--------------------------------------------------------------------------
@@ -268,4 +256,3 @@ Route::post('/mahasiswa/upload-project', [ProjectController::class, 'store'])
 Route::get('/mahasiswa/repository', [ProjectController::class, 'repository'])
     ->middleware('auth')
     ->name('repository.saya');    
->>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835
