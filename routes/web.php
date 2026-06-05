@@ -16,7 +16,11 @@ use App\Http\Controllers\Admin\SoalKepribadianController;
 use App\Http\Controllers\Admin\KategoriKepribadianController;
 use App\Models\SoalKepribadian;
 use App\Http\Controllers\KepribadianController;
+<<<<<<< HEAD
 use App\Http\Controllers\SyncPathController;
+=======
+use App\Http\Controllers\ProjectController;
+>>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835
 
 
 Route::get('/tes-relasi', function () {
@@ -91,6 +95,57 @@ Route::get('/mahasiswa/pilih-tes', function () {
     return view('mahasiswa.pilih_tes');
 })->middleware('auth')->name('pilih.tes');
 
+<<<<<<< HEAD
+=======
+Route::get('/mentor/upload-proyek', [UploadProyekMentorController::class, 'create'])
+    ->middleware('auth')
+    ->name('mentor.upload.proyek');
+
+Route::post('/mentor/upload-proyek', [UploadProyekMentorController::class, 'store'])
+    ->middleware('auth')
+    ->name('mentor.upload.proyek.store');
+
+Route::get('/mentor/upload-proyek/edit/{id}', [UploadProyekMentorController::class, 'edit'])
+    ->middleware('auth')
+    ->name('mentor.upload.proyek.edit');
+
+Route::put('/mentor/upload-proyek/update/{id}', [UploadProyekMentorController::class, 'update'])
+    ->middleware('auth')
+    ->name('mentor.upload.proyek.update');
+
+Route::get('/mentor/upload-proyek/show/{id}', [UploadProyekMentorController::class, 'show'])
+    ->middleware('auth')
+    ->name('mentor.upload.proyek.show');
+
+Route::delete('/mentor/upload-proyek/delete/{id}', [UploadProyekMentorController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('mentor.upload.proyek.delete');
+
+/*
+|--------------------------------------------------------------------------
+| TEST SYSTEM (GENERAL)
+|--------------------------------------------------------------------------
+*/
+Route::get('/tes/{slug}', [TestController::class, 'show'])
+    ->middleware('auth')
+    ->name('tes.show');
+
+Route::post('/tes/{slug}', [TestController::class, 'submit'])
+    ->middleware('auth')
+    ->name('tes.submit');
+
+Route::get('/tes/{slug}/result', [TestController::class, 'result'])
+    ->middleware('auth')
+    ->name('tes.result');
+
+/*
+|--------------------------------------------------------------------------
+| SKILL TEST
+|--------------------------------------------------------------------------
+*/
+
+
+>>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835
 Route::get('/pilih-tes-skill', [SkillController::class, 'index'])
     ->name('tes.skill');
 
@@ -146,6 +201,10 @@ Route::middleware('auth')->group(function () {
         [SoalKepribadianController::class, 'destroy']
     )->name('soal.delete');
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835
 Route::get(
     '/admin/soal-kepribadian',
     [SoalKepribadianController::class, 'index']
@@ -165,6 +224,7 @@ Route::get(
  ->name('hasil.kepribadian');
 
 
+<<<<<<< HEAD
  /*
 | SyncPath
 */
@@ -186,3 +246,26 @@ Route::get('/syncpath/result', [SyncPathController::class, 'result'])
 
 
 
+=======
+
+
+/*
+|--------------------------------------------------------------------------
+| KATEGORI KEPRIBADIAN
+|--------------------------------------------------------------------------
+*/
+Route::get('/admin/kategori-kepribadian', [KategoriKepribadianController::class, 'index'])
+    ->name('kategori.index');
+
+//UPLOAD PROYEK
+Route::get('/mahasiswa/upload-project', [ProjectController::class, 'create'])
+    ->middleware('auth')
+    ->name('project.create');
+
+Route::post('/mahasiswa/upload-project', [ProjectController::class, 'store'])
+    ->middleware('auth')
+    ->name('project.store');    
+Route::get('/mahasiswa/repository', [ProjectController::class, 'repository'])
+    ->middleware('auth')
+    ->name('repository.saya');    
+>>>>>>> dd68c785ca0a43f9b72f445d4d262f1ff2dff835

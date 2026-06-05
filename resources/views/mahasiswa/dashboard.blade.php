@@ -243,28 +243,47 @@
         </a>
 
         <!-- SyncProject -->
-        <a href="#" class="group">
-            <div class="bg-white border border-sky-200 p-6 rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-1 transition relative overflow-hidden">
+<a href="{{ route('project.create') }}" class="group">
+    <div class="bg-white border border-sky-200 p-6 rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-1 transition relative overflow-hidden">
 
-                <span class="absolute top-3 right-3 bg-sky-500 text-white text-xs px-2 py-1 rounded-full">
-                    New
-                </span>
+        <span class="absolute top-3 right-3 bg-sky-500 text-white text-xs px-2 py-1 rounded-full">
+            New
+        </span>
 
-                <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
-                    📁
-                </div>
+        <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
+            📁
+        </div>
 
-                <h3 class="font-bold text-lg text-sky-600 mb-2">SyncProject</h3>
-                <p class="text-sm text-slate-500">
-                    Upload proyek & dapatkan validasi dari mentor.
-                </p>
+        <h3 class="font-bold text-lg text-sky-600 mb-2">
+            SyncProject
+        </h3>
 
-            </div>
-        </a>
+        <p class="text-sm text-slate-500">
+            Upload proyek, simpan ke repository pribadi, atau kirim ke mentor untuk mendapatkan penilaian.
+        </p>
 
+    </div>
+</a>
     </div>
 
 </section>
+<a href="{{ route('repository.saya') }}" class="group">
+    <div class="bg-white border border-indigo-200 p-6 rounded-3xl shadow-md hover:shadow-xl transition">
+
+        <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+            📂
+        </div>
+
+        <h3 class="font-bold text-lg text-indigo-600 mb-2">
+            Repository Saya
+        </h3>
+
+        <p class="text-sm text-slate-500">
+            Lihat seluruh proyek yang pernah Anda upload.
+        </p>
+
+    </div>
+</a>
 
 @if(session('success'))
 <script>
