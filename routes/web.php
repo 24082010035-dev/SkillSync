@@ -149,6 +149,8 @@ Route::get('/tes/{slug}/result', [TestController::class, 'result'])
 
 Route::get('/pilih-tes-skill', [SkillController::class, 'index'])
     ->name('tes.skill');
+Route::get('/skill/{skill}/start', [QuestionController::class, 'start'])
+    ->name('skill.start');
 
 Route::get('/skill/{skill}/soal/{nomor?}', [QuestionController::class, 'show'])
     ->name('skill.soal');
@@ -203,7 +205,9 @@ Route::middleware('auth')->group(function () {
     )->name('soal.delete');
 });
 
-
+Route::get('/mahasiswa/tes-kepribadian', [KepribadianController::class, 'start'])
+    ->middleware('auth')
+    ->name('tes.kepribadian.start');
  Route::get('/mahasiswa/tes-kepribadian/{nomor?}', [KepribadianController::class, 'show'])
     ->middleware('auth')
     ->name('tes.kepribadian');

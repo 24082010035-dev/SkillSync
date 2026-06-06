@@ -20,4 +20,8 @@ class HasilTes extends Model
     {
         return $this->hasMany(HasilDetailSkill::class, 'hasil_tes_id');
     }
+    public function detailSyncpath()
+    {
+        return $this->hasMany(HasilDetailSyncpath::class, 'hasil_tes_id');
+    }
 }
