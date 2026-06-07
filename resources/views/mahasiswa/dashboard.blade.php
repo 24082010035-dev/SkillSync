@@ -211,7 +211,7 @@
         </a>
 
         <!-- SyncInsight -->
-        <a href="#" class="group">
+        <a href="{{ route('syncinsight') }}" class="group">
             <div class="bg-white border border-slate-100 p-6 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition">
 
                 <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mb-4">

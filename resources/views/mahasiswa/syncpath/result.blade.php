@@ -81,7 +81,7 @@
 
         <div class="text-center mt-10">
 
-            <a href="{{ route('mahasiswa.blade') }}"
+            <a href="{{ route('mahasiswa.dashboard') }}"
                class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl inline-block">
 
                 Kembali ke Dashboard

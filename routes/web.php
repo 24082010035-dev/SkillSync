@@ -22,6 +22,7 @@ use App\Http\Controllers\SyncPathController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Mentor\UploadProyekMentorController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\SyncInsightController;
 
 
 
@@ -270,3 +271,11 @@ Route::put('/mahasiswa/project/update/{id}', [ProjectController::class, 'update'
 Route::delete('/mahasiswa/project/delete/{id}', [ProjectController::class, 'destroy'])
     ->middleware('auth')
     ->name('project.delete');
+/*
+|--------------------------------------------------------------------------
+| SYNCINSIGHT (Peta Kompetensi)
+|--------------------------------------------------------------------------
+*/
+Route::get('/syncinsight', [SyncInsightController::class, 'index'])
+    ->middleware('auth')
+    ->name('syncinsight');

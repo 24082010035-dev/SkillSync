@@ -50,16 +50,12 @@
 
                     <span class="
                         px-3 py-1 rounded-full text-sm
-
-                        @if($item->status == 'repository')
-                            bg-blue-100 text-blue-700
-                        @elseif($item->status == 'pending')
-                            bg-yellow-100 text-yellow-700
-                        @elseif($item->status == 'approve')
-                            bg-green-100 text-green-700
-                        @elseif($item->status == 'reject')
-                            bg-red-100 text-red-700
-                        @endif
+                        {{
+                            $item->status == 'repository' ? 'bg-blue-100 text-blue-700' :
+                            ($item->status == 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                            ($item->status == 'approve' ? 'bg-green-100 text-green-700' :
+                            'bg-red-100 text-red-700'))
+                        }}
                     ">
                         {{ ucfirst($item->status) }}
                     </span>
