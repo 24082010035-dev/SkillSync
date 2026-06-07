@@ -20,6 +20,11 @@
     <h1 class="text-3xl font-bold text-blue-600 mt-4 mb-8">
         Repository Saya 📁
     </h1>
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-300 text-green-700 p-4 rounded-xl mb-6">
+            {{ session('success') }}
+        </div>
+    @endif
 
     @if($proyek->count() > 0)
 
@@ -43,8 +48,20 @@
 
                     </div>
 
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                        {{ $item->status }}
+                    <span class="
+                        px-3 py-1 rounded-full text-sm
+
+                        @if($item->status == 'repository')
+                            bg-blue-100 text-blue-700
+                        @elseif($item->status == 'pending')
+                            bg-yellow-100 text-yellow-700
+                        @elseif($item->status == 'approve')
+                            bg-green-100 text-green-700
+                        @elseif($item->status == 'reject')
+                            bg-red-100 text-red-700
+                        @endif
+                    ">
+                        {{ ucfirst($item->status) }}
                     </span>
 
                 </div>
@@ -52,11 +69,28 @@
                 <div class="mt-4 flex gap-3">
 
                     <a href="{{ asset('storage/' . $item->file_proyek) }}"
-                       target="_blank"
-                       class="bg-blue-500 text-white px-4 py-2 rounded-xl">
-
+                    target="_blank"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-xl">
                         Lihat File
                     </a>
+
+                    <a href="{{ route('project.edit', $item->id) }}"
+                    class="bg-yellow-500 text-white px-4 py-2 rounded-xl">
+                        Edit
+                    </a>
+                    <form action="{{ route('project.delete', $item->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Yakin ingin menghapus project ini?')">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="bg-red-500 text-white px-4 py-2 rounded-xl">
+                            Hapus
+                        </button>
+
+                    </form>
 
                 </div>
 

@@ -259,4 +259,14 @@ Route::post('/mahasiswa/upload-project', [ProjectController::class, 'store'])
     ->name('project.store');    
 Route::get('/mahasiswa/repository', [ProjectController::class, 'repository'])
     ->middleware('auth')
-    ->name('repository.saya');    
+    ->name('repository.saya'); 
+Route::get('/mahasiswa/project/edit/{id}', [ProjectController::class, 'edit'])
+    ->middleware('auth')
+    ->name('project.edit');
+
+Route::put('/mahasiswa/project/update/{id}', [ProjectController::class, 'update'])
+    ->middleware('auth')
+    ->name('project.update');   
+Route::delete('/mahasiswa/project/delete/{id}', [ProjectController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('project.delete');

@@ -38,11 +38,60 @@ class ProjectController extends Controller
         return back()->with('success', 'Project berhasil diupload');
     }
     public function repository()
-{
-    $proyek = Proyek::where('user_id', auth()->id())
-        ->latest()
-        ->get();
+    {
+        $proyek = Proyek::where('user_id', auth()->id())
+            ->latest()
+            ->get();
 
-    return view('mahasiswa.repository', compact('proyek'));
-}
+        return view('mahasiswa.repository', compact('proyek'));
+    }
+    public function edit($id)
+    {
+        $proyek = Proyek::where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+        return view('mahasiswa.edit_project', compact('proyek'));
+    }
+    public function update(Request $request, $id)
+    {
+        $proyek = Proyek::where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+
+        $request->validate([
+            'judul' => 'required|max:255',
+            'deskripsi' => 'nullable'
+        ]);
+
+        $proyek->nama_proyek = $request->judul;
+        $proyek->deskripsi = $request->deskripsi;
+
+        if ($request->hasFile('file_proyek')) {
+
+            $file = $request->file('file_proyek')
+                ->store('projects', 'public');
+
+            $proyek->file_proyek = $file;
+        }
+
+        $proyek->save();
+
+        return redirect()
+            ->route('repository.saya')
+            ->with('success', 'Project berhasil diperbarui');
+    }
+    public function destroy($id)
+    {
+        $proyek = Proyek::where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+        $proyek->delete();
+
+        return redirect()
+            ->route('repository.saya')
+            ->with('success', 'Project berhasil dihapus');
+    }
 }
