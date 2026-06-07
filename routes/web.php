@@ -26,6 +26,7 @@ use App\Http\Controllers\SyncInsightController;
 
 
 
+
 Route::get('/tes-relasi', function () {
 
     $profile = MahasiswaProfile::first();
@@ -279,3 +280,7 @@ Route::delete('/mahasiswa/project/delete/{id}', [ProjectController::class, 'dest
 Route::get('/syncinsight', [SyncInsightController::class, 'index'])
     ->middleware('auth')
     ->name('syncinsight');
+Route::get(
+    '/syncinsight/export-pdf',
+    [SyncInsightController::class, 'exportPdf']
+)->name('syncinsight.export.pdf');

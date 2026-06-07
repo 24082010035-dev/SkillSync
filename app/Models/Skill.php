@@ -11,6 +11,7 @@ class Skill extends Model
     protected $fillable = [
         'nama_skill',
         'deskripsi',
+         'rekomendasi_pengembangan',
     ];
 
     public function jurusan()

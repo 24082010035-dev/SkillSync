@@ -16,6 +16,16 @@
        class="text-blue-600 hover:text-blue-800 font-medium">
         ← Kembali ke Dashboard
     </a>
+    <div class="flex justify-end mb-6">
+
+    <a href="{{ route('syncinsight.export.pdf') }}"
+        class="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl shadow">
+
+            Download PDF
+
+    </a>
+
+</div>
 
     <h1 class="flex items-center gap-3 text-4xl font-bold text-blue-600 mt-4">
 
