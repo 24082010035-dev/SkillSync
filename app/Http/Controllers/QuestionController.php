@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\HasilTes;
 use App\Models\HasilDetailSkill;
+
 
 class QuestionController extends Controller
 {
@@ -80,25 +82,30 @@ class QuestionController extends Controller
 
         $skor = ($benar / $totalSoal) * 100;
 
-        $hasilTes = HasilTes::create([
-        'user_id' => Auth::id(),
-        'jenis_tes' => 'Skill',
-        'skor_total' => $skor,
-        'created_at' => now(),
-    ]);
-        if ($skor < 60) {
-            $level = 'Beginner';
-        } elseif ($skor < 80) {
-            $level = 'Intermediate';
-        } else {
-            $level = 'Advanced';
-        }
-        HasilDetailSkill::create([
-        'hasil_tes_id' => $hasilTes->id,
-        'skill_id' => $skill->id,
-        'skor' => $skor,
-        'level_dicapai' => $level,
-    ]);
+        DB::transaction(function () use ($skor, $skill, &$hasilTes) {
+
+            $hasilTes = HasilTes::create([
+                'user_id' => Auth::id(),
+                'jenis_tes' => 'Skill',
+                'skor_total' => $skor,
+                'created_at' => now(),
+            ]);
+
+            if ($skor < 60) {
+                $level = 'Beginner';
+            } elseif ($skor < 80) {
+                $level = 'Intermediate';
+            } else {
+                $level = 'Advanced';
+            }
+
+            HasilDetailSkill::create([
+                'hasil_tes_id' => $hasilTes->id,
+                'skill_id' => $skill->id,
+                'skor' => $skor,
+                'level_dicapai' => $level,
+            ]);
+        });
     $request->session()->forget('jawaban');
     return redirect()->route('hasil.tes', $hasilTes->id);
     }

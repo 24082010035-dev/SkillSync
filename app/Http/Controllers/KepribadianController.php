@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\OpsiKepribadian;
 use App\Models\HasilTes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\HasilDetailKepribadian;
 
 
@@ -59,10 +60,12 @@ class KepribadianController extends Controller
 
         if ($nomor >= $totalSoal) {
 
-            $jawaban = session('jawaban_kepribadian');
+        $jawaban = session('jawaban_kepribadian');
 
-            $totalSkor = OpsiKepribadian::whereIn('id', $jawaban)
-                ->sum('skor');
+        $totalSkor = OpsiKepribadian::whereIn('id', $jawaban)
+            ->sum('skor');
+
+        DB::transaction(function () use ($totalSkor, &$hasilTes) {
 
             $hasilTes = HasilTes::create([
                 'user_id' => Auth::id(),
@@ -70,41 +73,45 @@ class KepribadianController extends Controller
                 'skor_total' => $totalSkor,
                 'created_at' => now(),
             ]);
+
             $jawaban = session('jawaban_kepribadian');
 
-        foreach ($jawaban as $opsiId) {
+            foreach ($jawaban as $opsiId) {
 
-            $opsi = OpsiKepribadian::with('soal')->find($opsiId);
+                $opsi = OpsiKepribadian::with('soal')->find($opsiId);
 
-            $kategoriId = $opsi->soal->kategori_id;
+                $kategoriId = $opsi->soal->kategori_id;
 
-            HasilDetailKepribadian::updateOrCreate(
-                [
-                    'hasil_tes_id' => $hasilTes->id,
-                    'kategori_id' => $kategoriId,
-                ],
-                [
-                    'skor' => HasilDetailKepribadian::where(
-                        'hasil_tes_id',
-                        $hasilTes->id
-                    )->where(
-                        'kategori_id',
-                        $kategoriId
-                    )->sum('skor') + $opsi->skor,
-                ]
-            );
-        }
-            
-            session()->forget('jawaban_kepribadian');
+                HasilDetailKepribadian::updateOrCreate(
+                    [
+                        'hasil_tes_id' => $hasilTes->id,
+                        'kategori_id' => $kategoriId,
+                    ],
+                    [
+                        'skor' => HasilDetailKepribadian::where(
+                            'hasil_tes_id',
+                            $hasilTes->id
+                        )->where(
+                            'kategori_id',
+                            $kategoriId
+                        )->sum('skor') + $opsi->skor,
+                    ]
+                );
+            }
+        });
 
-            return redirect()->route('hasil.kepribadian', $hasilTes->id);
-
-        }
+        session()->forget('jawaban_kepribadian');
 
         return redirect()->route(
-            'tes.kepribadian',
-            $nomor + 1
+            'hasil.kepribadian',
+            $hasilTes->id
         );
+    }
+
+    return redirect()->route(
+        'tes.kepribadian',
+        $nomor + 1
+    );
     }
     public function hasil(HasilTes $hasilTes)
     {
