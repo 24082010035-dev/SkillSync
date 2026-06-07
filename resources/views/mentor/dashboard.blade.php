@@ -66,10 +66,10 @@
     </div>
 
     @php
-        $pending = 0;
-        $totalProyek = $proyekMentor->count();
-        $totalViews = 0;
-    @endphp
+    $pending = $antrianProject->count();
+    $totalProyek = $proyekMentor->count();
+    $totalViews = 0;
+@endphp
 
     <!-- SUMMARY -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -90,6 +90,100 @@
         </div>
 
     </div>
+    <!-- ANTRIAN PENILAIAN PROJECT -->
+<div class="mb-10">
+
+    <div class="flex justify-between items-center mb-5">
+
+        <div>
+            <h2 class="text-2xl font-bold">
+                Antrian Penilaian Project Mahasiswa
+            </h2>
+
+            <p class="text-slate-400 text-sm">
+                Project yang menunggu review mentor
+            </p>
+        </div>
+
+        <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-xl">
+            {{ $antrianProject->count() }} Pending
+        </span>
+
+    </div>
+
+    @forelse($antrianProject as $project)
+
+    <div class="bg-white p-6 rounded-3xl shadow-sm mb-4 border border-slate-100">
+
+        <div class="flex justify-between items-start">
+
+            <div>
+
+                <h3 class="text-xl font-bold text-slate-800">
+                    {{ $project->nama_proyek }}
+                </h3>
+
+                <p class="text-slate-500 mt-2">
+                    {{ $project->deskripsi }}
+                </p>
+
+                <p class="text-xs text-slate-400 mt-3">
+                    Dikirim:
+                    {{ $project->created_at->format('d M Y H:i') }}
+                </p>
+
+            </div>
+
+            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
+                Pending
+            </span>
+
+        </div>
+
+        <div class="flex gap-3 mt-5">
+
+            <a href="{{ asset('storage/'.$project->file_proyek) }}"
+               target="_blank"
+               class="border border-green-500 text-green-500 px-4 py-2 rounded-xl hover:bg-green-50">
+
+                Download File
+
+            </a>
+
+            <a href="{{ route('mentor.project.show', $project->id) }}"
+               class="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600">
+
+                Review & Beri Nilai
+
+            </a>
+
+        </div>
+
+    </div>
+
+    @empty
+
+    <div class="bg-white p-10 rounded-3xl text-center border border-dashed border-slate-200">
+
+        <div class="text-5xl mb-3">
+            📭
+        </div>
+
+        <h3 class="font-bold text-lg text-slate-700">
+            Tidak Ada Antrian Penilaian
+        </h3>
+
+        <p class="text-slate-400">
+            Belum ada project mahasiswa yang meminta penilaian.
+        </p>
+
+    </div>
+
+    @endforelse
+
+</div>
+
+
 
     <!-- HEADER PROYEK -->
     <div class="flex justify-between items-center mb-6">

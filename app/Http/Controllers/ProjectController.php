@@ -30,19 +30,32 @@ class ProjectController extends Controller
             'deskripsi' => $request->deskripsi,
             'file_proyek' => $file,
             'tipe_project' => $request->tipe_project,
+
+            // repository = simpan pribadi
+            // penilaian = kirim ke mentor
             'status' => $request->tipe_project == 'penilaian'
                 ? 'pending'
                 : 'repository'
         ]);
 
-        return back()->with('success', 'Project berhasil diupload');
+        return back()->with(
+            'success',
+            'Project berhasil diupload'
+        );
     }
+
     public function repository()
-{
-    $proyek = Proyek::where('user_id', auth()->id())
+    {
+        $proyek = Proyek::where(
+            'user_id',
+            auth()->id()
+        )
         ->latest()
         ->get();
 
-    return view('mahasiswa.repository', compact('proyek'));
-}
+        return view(
+            'mahasiswa.repository',
+            compact('proyek')
+        );
+    }
 }

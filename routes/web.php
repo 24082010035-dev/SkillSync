@@ -10,6 +10,7 @@ use App\Http\Controllers\Mahasiswa\DashboardMahasiswaController;
 use App\Http\Controllers\Mentor\MentorDashboardController;
 use App\Http\Controllers\Mentor\UploadProyekMentorController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Mentor\PenilaianProjectController;
 
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\QuestionController;
@@ -263,4 +264,14 @@ Route::post('/mahasiswa/upload-project', [ProjectController::class, 'store'])
     ->name('project.store');    
 Route::get('/mahasiswa/repository', [ProjectController::class, 'repository'])
     ->middleware('auth')
-    ->name('repository.saya');    
+    ->name('repository.saya');
+        
+Route::get(
+    '/mentor/project/{id}',
+    [PenilaianProjectController::class, 'show']
+)->name('mentor.project.show');
+
+Route::post(
+    '/mentor/project/{id}/nilai',
+    [PenilaianProjectController::class, 'store']
+)->name('mentor.project.nilai');    
