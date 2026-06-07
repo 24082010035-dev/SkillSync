@@ -23,7 +23,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Mentor\UploadProyekMentorController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\SyncInsightController;
-
+use App\Http\Controllers\SyncCareerMatchController;
 
 
 
@@ -284,3 +284,13 @@ Route::get(
     '/syncinsight/export-pdf',
     [SyncInsightController::class, 'exportPdf']
 )->name('syncinsight.export.pdf');
+
+/*
+|--------------------------------------------------------------------------
+| SyncCreerMatch (Rekomendasi Career)
+|--------------------------------------------------------------------------
+*/
+Route::get(
+    '/synccareermatch',
+    [SyncCareerMatchController::class, 'index']
+)->name('synccareermatch');
