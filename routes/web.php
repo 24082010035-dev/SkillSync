@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\MahasiswaRegisterController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\QuestionController;
 use App\Models\HasilTes;
 use App\Http\Controllers\Admin\SoalKepribadianController;
 use App\Http\Controllers\Admin\KategoriKepribadianController;
+
 use App\Models\SoalKepribadian;
 use App\Http\Controllers\KepribadianController;
 
@@ -32,6 +34,10 @@ use App\Http\Controllers\SyncCareerMatchController;
 use App\Http\Controllers\UserController;
 
 
+use App\Http\Controllers\Admin\PertanyaanKepribadianController;
+use App\Http\Controllers\Admin\OpsiKepribadianController;
+use App\Http\Controllers\Admin\BobotKepribadianController;
+use App\Http\Controllers\Admin\SkillManagementController;
 
 Route::get('/tes-relasi', function () {
 
@@ -229,6 +235,160 @@ Route::get(
 )->middleware('auth')
  ->name('hasil.kepribadian');
 
+Route::get(
+    '/admin/kategori-kepribadian/create',
+    [KategoriKepribadianController::class, 'create']
+)->name('kategori.create');
+
+Route::post(
+    '/admin/kategori-kepribadian/store',
+    [KategoriKepribadianController::class, 'store']
+)->name('kategori.store');
+
+Route::get(
+    '/admin/kategori-kepribadian/edit/{id}',
+    [KategoriKepribadianController::class, 'edit']
+)->name('kategori.edit');
+
+Route::put(
+    '/admin/kategori-kepribadian/update/{id}',
+    [KategoriKepribadianController::class, 'update']
+)->name('kategori.update');
+
+Route::delete(
+    '/admin/kategori-kepribadian/delete/{id}',
+    [KategoriKepribadianController::class, 'destroy']
+)->name('kategori.delete');
+
+Route::get(
+    '/admin/pertanyaan-kepribadian',
+    [PertanyaanKepribadianController::class, 'index']
+)->name('pertanyaan.index');
+
+Route::get(
+    '/admin/pertanyaan-kepribadian/create',
+    [PertanyaanKepribadianController::class, 'create']
+)->name('pertanyaan.create');
+
+Route::post(
+    '/admin/pertanyaan-kepribadian/store',
+    [PertanyaanKepribadianController::class, 'store']
+)->name('pertanyaan.store');
+
+Route::get(
+    '/admin/pertanyaan-kepribadian/edit/{id}',
+    [PertanyaanKepribadianController::class, 'edit']
+)->name('pertanyaan.edit');
+
+Route::put(
+    '/admin/pertanyaan-kepribadian/update/{id}',
+    [PertanyaanKepribadianController::class, 'update']
+)->name('pertanyaan.update');
+
+Route::delete(
+    '/admin/pertanyaan-kepribadian/delete/{id}',
+    [PertanyaanKepribadianController::class, 'destroy']
+)->name('pertanyaan.delete');
+
+Route::get(
+    '/admin/opsi-kepribadian',
+    [OpsiKepribadianController::class, 'index']
+)->name('opsi.index');
+
+Route::get(
+    '/admin/opsi-kepribadian/create',
+    [OpsiKepribadianController::class, 'create']
+)->name('opsi.create');
+
+Route::post(
+    '/admin/opsi-kepribadian/store',
+    [OpsiKepribadianController::class, 'store']
+)->name('opsi.store');
+
+Route::get(
+    '/admin/opsi-kepribadian/edit/{id}',
+    [OpsiKepribadianController::class, 'edit']
+)->name('opsi.edit');
+
+Route::put(
+    '/admin/opsi-kepribadian/update/{id}',
+    [OpsiKepribadianController::class, 'update']
+)->name('opsi.update');
+
+Route::delete(
+    '/admin/opsi-kepribadian/delete/{id}',
+    [OpsiKepribadianController::class, 'destroy']
+)->name('opsi.delete');
+
+Route::delete(
+    '/admin/opsi-kepribadian/delete/{id}',
+    [OpsiKepribadianController::class, 'destroy']
+)->name('opsi.delete');
+
+
+Route::get(
+    '/admin/bobot-kepribadian',
+    [BobotKepribadianController::class, 'index']
+)->name('bobot.index');
+
+Route::get(
+    '/admin/bobot-kepribadian/create',
+    [BobotKepribadianController::class, 'create']
+)->name('bobot.create');
+
+Route::post(
+    '/admin/bobot-kepribadian/store',
+    [BobotKepribadianController::class, 'store']
+)->name('bobot.store');
+
+Route::get(
+    '/admin/bobot-kepribadian/edit/{id}',
+    [BobotKepribadianController::class, 'edit']
+)->name('bobot.edit');
+
+Route::put(
+    '/admin/bobot-kepribadian/update/{id}',
+    [BobotKepribadianController::class, 'update']
+)->name('bobot.update');
+
+Route::delete(
+    '/admin/bobot-kepribadian/delete/{id}',
+    [BobotKepribadianController::class, 'destroy']
+)->name('bobot.delete');
+
+
+/*
+| kelola manajemen skill (admin)
+*/
+Route::get(
+    '/admin/skill',
+    [SkillManagementController::class, 'index']
+)->name('skill.index');
+
+Route::get(
+    '/admin/skill/create',
+    [SkillManagementController::class, 'create']
+)->name('skill.create');
+
+Route::post(
+    '/admin/skill/store',
+    [SkillManagementController::class, 'store']
+)->name('skill.store');
+
+Route::get(
+    '/admin/skill/edit/{id}',
+    [SkillManagementController::class, 'edit']
+)->name('skill.edit');
+
+Route::put(
+    '/admin/skill/update/{id}',
+    [SkillManagementController::class, 'update']
+)->name('skill.update');
+
+Route::delete(
+    '/admin/skill/delete/{id}',
+    [SkillManagementController::class, 'destroy']
+)->name('skill.delete');
 
 
  /*

@@ -76,44 +76,44 @@
     <!-- Menu -->
     <div class="grid md:grid-cols-2 gap-6">
 
-        <!-- Pertanyaan -->
-        <a href="#"
-           class="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition">
+    <!-- Pertanyaan -->
+    <a href="{{ route('pertanyaan.index') }}"
+    class="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition block">
 
-            <div class="text-4xl mb-4">
-                📋
-            </div>
+        <div class="text-4xl mb-4">
+            📋
+        </div>
 
-            <div class="mt-4">
-                <button
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl">
+        <div class="mt-4">
+            <span
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl inline-block">
 
-                    Kelola Pertanyaan
+                Kelola Pertanyaan
 
-                </button>
-            </div>
+            </span>
+        </div>
 
-            <p class="text-gray-500 mt-2">
-                Tambah, edit dan hapus soal kepribadian.
-            </p>
+        <p class="text-gray-500 mt-2">
+            Tambah, edit dan hapus soal kepribadian.
+        </p>
 
-        </a>
+    </a>
 
         <!-- Opsi -->
-        <a href="#"
-           class="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition">
+        <a href="{{ route('opsi.index') }}"
+        class="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition block">
 
             <div class="text-4xl mb-4">
                 📝
             </div>
 
             <div class="mt-4">
-                <button
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl">
+                <span
+                    class="bg-blue-500 text-white px-4 py-2 rounded-xl inline-block">
 
                     Kelola Opsi
 
-                </button>
+                </span>
             </div>
 
             <p class="text-gray-500 mt-2">
@@ -131,12 +131,12 @@
             </div>
 
             <div class="mt-4">
-                <button
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl">
+                <span
+                    class="bg-blue-500 text-white px-4 py-2 rounded-xl inline-block">
 
                     Kelola Kategori
 
-                </button>
+                </span>
             </div>
 
             <p class="text-gray-500 mt-2">

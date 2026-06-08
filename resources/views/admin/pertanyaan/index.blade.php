@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Kategori Kepribadian</title>
+    <title>Kelola Pertanyaan</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -17,43 +17,40 @@
         <a href="{{ url('/admin/soal-kepribadian') }}"
            class="inline-flex items-center gap-2
                   bg-blue-500 hover:bg-blue-600
-                  text-white
-                  px-4 py-2
-                  rounded-xl
-                  shadow-md
-                  transition">
+                  text-white px-4 py-2
+                  rounded-xl shadow-md">
 
             ← Kembali ke Kelola Soal
 
         </a>
     </div>
 
-<!-- Header -->
-<div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-8 text-white shadow-lg mb-8">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl p-8 text-white shadow-lg mb-8">
 
-    <h1 class="text-4xl font-bold mb-2">
-        Kelola Kategori Kepribadian 🧠
-    </h1>
+        <h1 class="text-4xl font-bold mb-2">
+            Kelola Pertanyaan 📋
+        </h1>
 
-    <p class="text-purple-100">
-        Tambah, edit dan hapus kategori kepribadian.
-    </p>
+        <p class="text-blue-100">
+            Tambah, edit dan hapus soal kepribadian.
+        </p>
 
-</div>
+    </div>
 
-    <!-- Judul + Tombol Tambah -->
+    <!-- Judul -->
     <div class="flex justify-between items-center mb-6">
 
         <h2 class="text-2xl font-bold">
-            Daftar Kategori
+            Daftar Pertanyaan
         </h2>
 
-        <a href="{{ route('kategori.create') }}"
-        class="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl shadow inline-block">
+                <a href="{{ route('pertanyaan.create') }}"
+                class="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl shadow">
 
-            + Tambah Kategori
+                    + Tambah Pertanyaan
 
-        </a>
+                </a>
 
     </div>
 
@@ -71,7 +68,7 @@
                     </th>
 
                     <th class="text-left px-6 py-4">
-                        Nama Kategori
+                        Pertanyaan
                     </th>
 
                     <th class="text-center px-6 py-4">
@@ -84,7 +81,7 @@
 
             <tbody>
 
-                @forelse($kategori as $item)
+                @forelse($soals as $soal)
 
                 <tr class="border-b hover:bg-slate-50">
 
@@ -93,23 +90,23 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        {{ $item->nama_kategori }}
+                        {{ $soal->pertanyaan }}
                     </td>
 
                     <td class="px-6 py-4">
 
                         <div class="flex justify-center gap-2">
 
-                            <a href="{{ route('kategori.edit', $item->id) }}"
-                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg">
+                                    <a href="{{ route('pertanyaan.edit', $soal->id) }}"
+                                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg">
 
-                                Edit
+                                            Edit
 
-                            </a>
+                                    </a>
 
-                            <form action="{{ route('kategori.delete', $item->id) }}"
+                            <form action="{{ route('pertanyaan.delete', $soal->id) }}"
                                 method="POST"
-                                onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
+                                onsubmit="return confirm('Yakin ingin menghapus pertanyaan ini?')">
 
                                 @csrf
                                 @method('DELETE')
@@ -137,7 +134,7 @@
                     <td colspan="3"
                         class="text-center py-10 text-gray-500">
 
-                        Belum ada kategori kepribadian.
+                        Belum ada pertanyaan.
 
                     </td>
 

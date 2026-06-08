@@ -155,7 +155,7 @@
                 Kelola data skill dan kompetensi pada platform.
             </p>
 
-            <a href="#"
+            <a href="{{ route('skill.index') }}"
                class="inline-block bg-indigo-500 hover:bg-indigo-600 transition text-white px-4 py-2 rounded-xl text-sm font-medium">
 
                 Kelola Skill
