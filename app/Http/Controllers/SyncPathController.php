@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Models\Test;
-use App\Models\Question;
-use App\Models\Option;
-use App\Models\Result;
+
+use App\Models\SoalSyncpath;
+use App\Models\OpsiSyncpath;
+use App\Models\KategoriSyncpath;
+use App\Models\HasilTes;
+use App\Models\HasilDetailSyncpath;
 use Illuminate\Support\Facades\Auth;
 
 class SyncPathController extends Controller
@@ -17,13 +18,7 @@ class SyncPathController extends Controller
      */
     public function start()
     {
-        $test = Test::where('slug', 'syncpath')->first();
-
-        if (!$test) {
-            abort(404, 'Test SyncPath belum tersedia');
-        }
-
-        return view('syncpath.start', compact('test'));
+        return view('mahasiswa.syncpath.start');
     }
 
     /**
@@ -31,10 +26,7 @@ class SyncPathController extends Controller
      */
     public function question($number = 1)
     {
-        $test = Test::where('slug', 'syncpath')->first();
-
-        $questions = Question::where('test_id', $test->id)
-            ->with('options')
+        $questions = SoalSyncpath::with('opsi')
             ->orderBy('id')
             ->get();
 
@@ -44,31 +36,78 @@ class SyncPathController extends Controller
             return redirect()->route('syncpath.result');
         }
 
-        return view('syncpath.question', [
+        $jawabanSebelumnya = session('jawaban_syncpath', []);
+
+        $jawabanTerpilih = $jawabanSebelumnya[$number] ?? null;
+
+        return view('mahasiswa.syncpath.question', [
             'question' => $question,
             'number' => $number,
-            'total' => $questions->count()
+            'total' => $questions->count(),
+            'jawabanTerpilih' => $jawabanTerpilih
         ]);
     }
-
     /**
      * SIMPAN JAWABAN
      */
-    public function submit(Request $request, $question_id)
+    public function submit(Request $request, $nomor)
     {
-        $request->validate([
-            'option_id' => 'required'
+        $jawaban = session('jawaban_syncpath', []);
+
+        $jawaban[$nomor] = $request->option_id;
+
+        session([
+            'jawaban_syncpath' => $jawaban
         ]);
 
-        Result::create([
-            'user_id' => Auth::id(),
-            'question_id' => $question_id,
-            'option_id' => $request->option_id,
-        ]);
+        $totalSoal = SoalSyncpath::count();
 
-        $next = $request->number + 1;
+        if ($nomor >= $totalSoal) {
 
-        return redirect()->route('syncpath.question', $next);
+            $jawaban = session('jawaban_syncpath');
+
+            $totalSkor = OpsiSyncpath::whereIn('id', $jawaban)
+                ->sum('skor');
+
+            $hasilTes = HasilTes::create([
+                'user_id' => Auth::id(),
+                'jenis_tes' => 'akademik',
+                'skor_total' => $totalSkor,
+                'created_at' => now(),
+            ]);
+
+            foreach ($jawaban as $opsiId) {
+
+                $opsi = OpsiSyncpath::with('soal')->find($opsiId);
+
+                $kategoriId = $opsi->soal->kategori_id;
+
+                HasilDetailSyncpath::updateOrCreate(
+                    [
+                        'hasil_tes_id' => $hasilTes->id,
+                        'kategori_id' => $kategoriId,
+                    ],
+                    [
+                        'skor' => HasilDetailSyncpath::where(
+                            'hasil_tes_id',
+                            $hasilTes->id
+                        )->where(
+                            'kategori_id',
+                            $kategoriId
+                        )->sum('skor') + $opsi->skor,
+                    ]
+                );
+            }
+
+            session()->forget('jawaban_syncpath');
+
+            return redirect()->route('syncpath.result');
+        }
+
+        return redirect()->route(
+            'syncpath.question',
+            $nomor + 1
+        );
     }
 
     /**
@@ -76,15 +115,25 @@ class SyncPathController extends Controller
      */
     public function result()
     {
-        $test = Test::where('slug', 'syncpath')->first();
+        $hasilTes = HasilTes::where('user_id', Auth::id())
+            ->where('jenis_tes', 'akademik')
+            ->latest('id')
+            ->first();
 
-        $results = Result::where('user_id', Auth::id())
-            ->whereHas('question', function ($q) use ($test) {
-                $q->where('test_id', $test->id);
-            })
-            ->with('option')
+        if (!$hasilTes) {
+            return redirect()->route('syncpath.start');
+        }
+
+        $detailKategori = HasilDetailSyncpath::with('kategori')
+            ->where('hasil_tes_id', $hasilTes->id)
             ->get();
 
-        return view('syncpath.result', compact('results'));
+        return view(
+            'mahasiswa.syncpath.result',
+            compact(
+                'hasilTes',
+                'detailKategori'
+            )
+        );
     }
 }

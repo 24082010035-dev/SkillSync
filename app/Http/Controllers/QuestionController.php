@@ -10,6 +10,12 @@ use App\Models\HasilDetailSkill;
 
 class QuestionController extends Controller
 {
+    public function start($skill)
+    {
+        $skill = \App\Models\Skill::findOrFail($skill);
+
+        return view('mahasiswa.start_skill', compact('skill'));
+    }
     public function show(Skill $skill, $nomor = 1)
 {
         $questions = $skill->questions;

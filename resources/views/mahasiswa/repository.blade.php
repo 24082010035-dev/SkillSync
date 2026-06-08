@@ -23,6 +23,12 @@
         Repository Saya 📁
     </h1>
 
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-300 text-green-700 p-4 rounded-xl mb-6">
+            {{ session('success') }}
+        </div>
+    @endif
+
     @if($proyek->count() > 0)
 
         <div class="grid gap-5">
@@ -31,7 +37,7 @@
 
             <div class="bg-white p-6 rounded-2xl shadow">
 
-                <div class="flex justify-between items-start">
+                <div class="flex justify-between items-center">
 
                     <div>
 
@@ -49,17 +55,23 @@
                     <div>
 
                         @if($item->status == 'pending')
-                            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
+
+                            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
                                 Menunggu Penilaian
                             </span>
+
                         @elseif($item->status == 'selesai')
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
                                 Sudah Dinilai
                             </span>
+
                         @else
-                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
                                 Repository Pribadi
                             </span>
+
                         @endif
 
                     </div>
@@ -90,13 +102,32 @@
                 @endif
 
                 <!-- ACTION -->
-                <div class="mt-4 flex gap-3">
+                <div class="mt-5 flex flex-wrap gap-3">
 
                     <a href="{{ asset('storage/' . $item->file_proyek) }}"
                        target="_blank"
                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl">
                         Lihat File
                     </a>
+
+                    <a href="{{ route('project.edit', $item->id) }}"
+                       class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-xl">
+                        Edit
+                    </a>
+
+                    <form action="{{ route('project.delete', $item->id) }}"
+                          method="POST"
+                          onsubmit="return confirm('Yakin ingin menghapus project ini?')">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl">
+                            Hapus
+                        </button>
+
+                    </form>
 
                 </div>
 

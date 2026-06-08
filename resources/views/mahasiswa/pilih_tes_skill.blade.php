@@ -51,7 +51,7 @@
 
             @foreach($skills as $skill)
 
-                <a href="{{ route('skill.soal', $skill->id) }}"
+                <a href="{{ route('skill.start', $skill->id) }}"
                    class="block">
 
                     <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition duration-300 flex items-center justify-between">

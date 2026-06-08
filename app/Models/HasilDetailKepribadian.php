@@ -13,4 +13,12 @@ class HasilDetailKepribadian extends Model
         'kategori_id',
         'skor',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(
+            KategoriKepribadian::class,
+            'kategori_id'
+        );
+    }
 }

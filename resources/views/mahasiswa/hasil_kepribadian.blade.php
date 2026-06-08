@@ -96,10 +96,10 @@
 
     </div>
 
-    <a href="{{ route('pilih.tes') }}"
+    <a href="{{ route('mahasiswa.dashboard') }}"
        class="inline-block mt-6 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">
 
-        Kembali ke Pilihan Tes
+        Kembali ke Dashboard
 
     </a>
 

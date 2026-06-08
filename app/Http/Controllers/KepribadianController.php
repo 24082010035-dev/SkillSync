@@ -14,6 +14,10 @@ use App\Models\HasilDetailKepribadian;
 
 class KepribadianController extends Controller
 {
+    public function start()
+    {
+        return view('mahasiswa.start_kepribadian');
+    }
     public function show($nomor = 1)
     
     {
