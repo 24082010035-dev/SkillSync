@@ -146,7 +146,7 @@
         </a>
 
         <!-- Bobot -->
-        <a href="#"
+        <a href="{{ route('bobot.index') }}"
            class="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition">
 
             <div class="text-4xl mb-4">
