@@ -29,6 +29,7 @@ use App\Http\Controllers\Mentor\UploadProyekMentorController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\SyncInsightController;
 use App\Http\Controllers\SyncCareerMatchController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -93,7 +94,8 @@ Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])
     ->middleware('auth')
     ->name('mentor.dashboard');
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
-    ->middleware('auth');
+    ->middleware('auth')
+     ->name('admin.dashboard');
 
 Route::get('/skills', [SkillController::class, 'index'])
     ->name('skills.index');
@@ -319,3 +321,41 @@ Route::get(
     [SyncCareerMatchController::class, 'index']
 )->name('synccareermatch');
 
+/*
+|--------------------------------------------------------------------------
+| Kelola Soal Kompetensi
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\Admin\QuestionManagementController;
+
+Route::get('/admin/soal-skill', [QuestionManagementController::class, 'index'])
+    ->name('admin.soal.index');
+
+Route::get('/admin/soal-skill/create', [QuestionManagementController::class, 'create'])
+    ->name('admin.soal.create');
+
+Route::post('/admin/soal-skill/store', [QuestionManagementController::class, 'store'])
+    ->name('admin.soal.store');
+
+Route::get('/admin/soal-skill/edit/{id}', [QuestionManagementController::class, 'edit'])
+    ->name('admin.soal.edit');
+
+Route::put('/admin/soal-skill/update/{id}', [QuestionManagementController::class, 'update'])
+    ->name('admin.soal.update');
+
+Route::delete('/admin/soal-skill/delete/{id}', [QuestionManagementController::class, 'destroy'])
+    ->name('admin.soal.delete');
+
+/*
+|--------------------------------------------------------------------------
+| User Manajement
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->group(function () {
+
+        Route::resource('users', UserController::class);
+
+    });

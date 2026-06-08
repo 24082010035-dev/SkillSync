@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Question extends Model
 {
     protected $table = 'soal_skill';
@@ -22,4 +23,5 @@ class Question extends Model
     {
         return $this->belongsTo(Skill::class, 'skill_id');
     }
+    
 }

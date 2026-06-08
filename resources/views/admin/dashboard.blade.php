@@ -93,7 +93,7 @@
 
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         <!-- CARD -->
         <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
@@ -132,7 +132,7 @@
                 Kelola soal tes skill dan kompetensi mahasiswa.
             </p>
 
-            <a href="#"
+            <a href="{{ route('admin.soal.index') }}"
                class="inline-block bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-xl text-sm font-medium">
 
                 Kelola Soal
@@ -178,7 +178,7 @@
                 Lihat dan kelola data seluruh pengguna platform.
             </p>
 
-            <a href="#"
+            <a href="{{ route('users.index') }}"
                class="inline-block bg-green-500 hover:bg-green-600 transition text-white px-4 py-2 rounded-xl text-sm font-medium">
 
                 Kelola User
@@ -186,51 +186,8 @@
 
         </div>
 
-        <!-- CARD -->
-        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
-
-            <div class="bg-purple-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-5">
-                <span class="text-3xl">📊</span>
-            </div>
-
-            <h3 class="font-bold text-lg text-slate-800 mb-2">
-                Hasil Tes
-            </h3>
-
-            <p class="text-slate-500 text-sm leading-relaxed mb-5">
-                Melihat hasil tes dan perkembangan mahasiswa.
-            </p>
-
-            <a href="#"
-               class="inline-block bg-purple-500 hover:bg-purple-600 transition text-white px-4 py-2 rounded-xl text-sm font-medium">
-
-                Lihat Hasil
-            </a>
-
-        </div>
-
-        <!-- CARD -->
-        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
-
-            <div class="bg-pink-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-5">
-                <span class="text-3xl">📂</span>
-            </div>
-
-            <h3 class="font-bold text-lg text-slate-800 mb-2">
-                Data Proyek
-            </h3>
-
-            <p class="text-slate-500 text-sm leading-relaxed mb-5">
-                Melihat proyek dan portfolio yang diupload mahasiswa.
-            </p>
-
-            <a href="#"
-               class="inline-block bg-pink-500 hover:bg-pink-600 transition text-white px-4 py-2 rounded-xl text-sm font-medium">
-
-                Lihat Proyek
-            </a>
-
-        </div>
+        
+        
 
     </div>
 
