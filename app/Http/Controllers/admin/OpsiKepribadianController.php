@@ -20,26 +20,33 @@ class OpsiKepribadianController extends Controller
     }
 
     public function create()
-    {
-        $soals = SoalKepribadian::all();
+{
+    $soals = SoalKepribadian::all();
 
-        return view(
-            'admin.opsi.create',
-            compact('soals')
-        );
-    }
+    return view(
+        'admin.opsi.create',
+        compact('soals')
+    );
+}
 
     public function store(Request $request)
-    {
-        OpsiKepribadian::create([
-            'soal_id' => $request->soal_id,
-            'opsi' => $request->opsi
-        ]);
+{
+    $request->validate([
+        'soal_id' => 'required|exists:soal_kepribadian,id',
+        'opsi' => 'required',
+        'skor' => 'required|numeric',
+    ]);
 
-        return redirect()
-            ->route('opsi.index')
-            ->with('success', 'Opsi berhasil ditambahkan');
-    }
+    OpsiKepribadian::create([
+        'soal_id' => $request->soal_id,
+        'opsi' => $request->opsi,
+        'skor' => $request->skor,
+    ]);
+
+    return redirect()
+        ->route('opsi.index')
+        ->with('success', 'Opsi berhasil ditambahkan');
+}
 
         public function edit($id)
     {

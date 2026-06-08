@@ -51,7 +51,30 @@
                 <label class="block mb-2 font-semibold">
                     Pertanyaan
                 </label>
+                <div class="mb-6">
 
+                    <label class="block mb-2 font-semibold">
+                        Kategori Kepribadian
+                    </label>
+
+                    <select
+                        name="kategori_id"
+                        class="w-full border rounded-xl px-4 py-3"
+                        required>
+
+                        <option value="">
+                            Pilih Kategori
+                        </option>
+
+                        @foreach($kategori as $item)
+                            <option value="{{ $item->id }}">
+                                {{ $item->nama_kategori }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                </div>
                 <textarea
                     name="pertanyaan"
                     rows="4"

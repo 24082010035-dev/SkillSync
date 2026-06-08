@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SoalKepribadian;
 use Illuminate\Http\Request;
+use App\Models\KategoriKepribadian;
 
 class PertanyaanKepribadianController extends Controller
 {
@@ -20,7 +21,13 @@ class PertanyaanKepribadianController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'kategori_id' => 'required|exists:kategori_kepribadian,id',
+            'pertanyaan' => 'required'
+        ]);
+
         SoalKepribadian::create([
+            'kategori_id' => $request->kategori_id,
             'pertanyaan' => $request->pertanyaan
         ]);
 
@@ -31,32 +38,44 @@ class PertanyaanKepribadianController extends Controller
 
     public function create()
     {
-        return view('admin.pertanyaan.create');
-    }
-
-
-        public function edit($id)
-    {
-        $soal = SoalKepribadian::findOrFail($id);
+        $kategori = KategoriKepribadian::all();
 
         return view(
-            'admin.pertanyaan.edit',
-            compact('soal')
+            'admin.pertanyaan.create',
+            compact('kategori')
         );
     }
 
+
+       public function edit($id)
+{
+    $soal = SoalKepribadian::findOrFail($id);
+    $kategori = KategoriKepribadian::all();
+
+    return view(
+        'admin.pertanyaan.edit',
+        compact('soal', 'kategori')
+    );
+}
+
     public function update(Request $request, $id)
-    {
-        $soal = SoalKepribadian::findOrFail($id);
+{
+    $request->validate([
+        'kategori_id' => 'required|exists:kategori_kepribadian,id',
+        'pertanyaan' => 'required'
+    ]);
 
-        $soal->update([
-            'pertanyaan' => $request->pertanyaan
-        ]);
+    $soal = SoalKepribadian::findOrFail($id);
 
-        return redirect()
-            ->route('pertanyaan.index')
-            ->with('success', 'Pertanyaan berhasil diupdate');
-    }
+    $soal->update([
+        'kategori_id' => $request->kategori_id,
+        'pertanyaan' => $request->pertanyaan
+    ]);
+
+    return redirect()
+        ->route('pertanyaan.index')
+        ->with('success', 'Pertanyaan berhasil diupdate');
+}
 
     public function destroy($id)
     {

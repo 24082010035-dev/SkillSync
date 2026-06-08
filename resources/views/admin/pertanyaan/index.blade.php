@@ -98,10 +98,8 @@
                         <div class="flex justify-center gap-2">
 
                                     <a href="{{ route('pertanyaan.edit', $soal->id) }}"
-                                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg">
-
-                                            Edit
-
+                                       class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg">
+                                        Edit
                                     </a>
 
                             <form action="{{ route('pertanyaan.delete', $soal->id) }}"
