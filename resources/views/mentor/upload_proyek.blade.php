@@ -13,7 +13,7 @@
 <div class="max-w-3xl mx-auto py-10 px-6">
 
     <!-- KEMBALI -->
-    <a href="{{ route('mahasiswa.dashboard') }}"
+    <a href="{{ route('mentor.dashboard') }}"
        class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium mb-6">
 
         ← Kembali ke Dashboard
@@ -31,7 +31,7 @@
             </h1>
 
             <p class="text-slate-500">
-                Simpan proyek ke repository pribadi atau kirim ke mentor untuk mendapatkan penilaian.
+                Simpan proyek ke repository pribadi 
             </p>
 
         </div>
@@ -59,7 +59,7 @@
         @endif
 
         <!-- FORM -->
-        <form action="{{ route('project.store') }}"
+        <form action="{{ route('mentor.upload.proyek.store') }}"
               method="POST"
               enctype="multipart/form-data">
 
@@ -73,8 +73,9 @@
                 </label>
 
                 <input
+                    <input
                     type="text"
-                    name="judul"
+                    name="judul_proyek"
                     class="w-full border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     placeholder="Masukkan judul proyek"
                     required>
@@ -116,42 +117,6 @@
 
             </div>
 
-            <!-- TIPE -->
-            <div class="mb-8">
-
-                <label class="block font-semibold mb-2">
-                    Tujuan Upload
-                </label>
-
-                <select
-                    name="tipe_project"
-                    class="w-full border border-slate-300 rounded-xl p-3">
-
-                    <option value="repository">
-                        Simpan ke Repository Pribadi
-                    </option>
-
-                    <option value="penilaian">
-                        Kirim ke Mentor untuk Penilaian
-                    </option>
-
-                </select>
-
-                <div class="mt-3 text-sm text-slate-500">
-
-                    <p class="mb-1">
-                        📁 <strong>Repository Pribadi</strong> :
-                        hanya tersimpan di akun Anda.
-                    </p>
-
-                    <p>
-                        ⭐ <strong>Penilaian Mentor</strong> :
-                        masuk ke antrian mentor untuk dinilai dan hasil skor akan digunakan pada SyncInsight.
-                    </p>
-
-                </div>
-
-            </div>
 
             <!-- BUTTON -->
             <button

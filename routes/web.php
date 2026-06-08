@@ -90,8 +90,8 @@ Route::get('/mahasiswa/dashboard', [DashboardMahasiswaController::class, 'index'
     ->name('mahasiswa.dashboard');
 
 Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])
-    ->middleware('auth');
-
+    ->middleware('auth')
+    ->name('mentor.dashboard');
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
     ->middleware('auth');
 
