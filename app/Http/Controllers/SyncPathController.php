@@ -9,6 +9,7 @@ use App\Models\KategoriSyncpath;
 use App\Models\HasilTes;
 use App\Models\HasilDetailSyncpath;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SyncPathController extends Controller
 {
@@ -69,35 +70,38 @@ class SyncPathController extends Controller
             $totalSkor = OpsiSyncpath::whereIn('id', $jawaban)
                 ->sum('skor');
 
-            $hasilTes = HasilTes::create([
-                'user_id' => Auth::id(),
-                'jenis_tes' => 'akademik',
-                'skor_total' => $totalSkor,
-                'created_at' => now(),
-            ]);
+            DB::transaction(function () use ($totalSkor, $jawaban, &$hasilTes) {
 
-            foreach ($jawaban as $opsiId) {
+                $hasilTes = HasilTes::create([
+                    'user_id' => Auth::id(),
+                    'jenis_tes' => 'akademik',
+                    'skor_total' => $totalSkor,
+                    'created_at' => now(),
+                ]);
 
-                $opsi = OpsiSyncpath::with('soal')->find($opsiId);
+                foreach ($jawaban as $opsiId) {
 
-                $kategoriId = $opsi->soal->kategori_id;
+                    $opsi = OpsiSyncpath::with('soal')->find($opsiId);
 
-                HasilDetailSyncpath::updateOrCreate(
-                    [
-                        'hasil_tes_id' => $hasilTes->id,
-                        'kategori_id' => $kategoriId,
-                    ],
-                    [
-                        'skor' => HasilDetailSyncpath::where(
-                            'hasil_tes_id',
-                            $hasilTes->id
-                        )->where(
-                            'kategori_id',
-                            $kategoriId
-                        )->sum('skor') + $opsi->skor,
-                    ]
-                );
-            }
+                    $kategoriId = $opsi->soal->kategori_id;
+
+                    HasilDetailSyncpath::updateOrCreate(
+                        [
+                            'hasil_tes_id' => $hasilTes->id,
+                            'kategori_id' => $kategoriId,
+                        ],
+                        [
+                            'skor' => HasilDetailSyncpath::where(
+                                'hasil_tes_id',
+                                $hasilTes->id
+                            )->where(
+                                'kategori_id',
+                                $kategoriId
+                            )->sum('skor') + $opsi->skor,
+                        ]
+                    );
+                }
+            });
 
             session()->forget('jawaban_syncpath');
 
